@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>銀河咖啡節：沉浸式觀察報告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #fcfaf7;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://docs.google.com/drawings/d/e/2PACX-1vTiWxnu-0cds2aHnLuFfCVTTRqIN_ev_BRe5_LZZHrkx726wob0fXOeGlYiFCuP9J2BUFjLOex0SKww/pub?w=960&h=720');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .observe-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #f3f4f6;
+            overflow: hidden;
+            background: white;
+        }
+
+        .observe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(139, 94, 60, 0.15);
+            border-color: #d97706;
+        }
+
+        .image-zoom {
+            overflow: hidden;
+            border-radius: 1rem;
+            position: relative;
+            background: #eee;
+        }
+
+        .image-zoom img {
+            transition: transform 0.6s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-zoom:hover img {
+            transform: scale(1.08);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d97706, transparent);
+            margin: 4rem 0;
+            opacity: 0.3;
+        }
+
+        .photo-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        .highlight-text {
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight-text::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(217, 119, 6, 0.2);
+            z-index: -1;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-left-6{left:-1.5rem}.-top-6{top:-1.5rem}.right-0{right:0px}.top-0{top:0px}.z-20{z-index:20}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-20{margin-bottom:5rem}.mb-3{margin-bottom:0.75rem}.mb-32{margin-bottom:8rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mr-2{margin-right:0.5rem}.mt-16{margin-top:4rem}.mt-2{margin-top:0.5rem}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-16{height:4rem}.h-3{height:0.75rem}.h-48{height:12rem}.h-6{height:1.5rem}.h-64{height:16rem}.h-80{height:20rem}.h-\[1px\]{height:1px}.h-\[calc\(50\%-0\.5rem\)\]{height:calc(50% - 0.5rem)}.h-full{height:100%}.h-screen{height:100vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-3{width:0.75rem}.w-6{width:1.5rem}.w-full{width:100%}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-7xl{max-width:80rem}.shrink-0{flex-shrink:0}.rotate-2{--tw-rotate:2deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-16{gap:4rem}.gap-2{gap:0.5rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-10 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2.5rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.space-y-8 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-\[2rem\]{border-radius:2rem}.rounded-\[3rem\]{border-radius:3rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-l-8{border-left-width:8px}.border-t{border-top-width:1px}.border-amber-100{--tw-border-opacity:1;border-color:rgb(254 243 199 / var(--tw-border-opacity, 1))}.border-amber-700{--tw-border-opacity:1;border-color:rgb(180 83 9 / var(--tw-border-opacity, 1))}.border-stone-800{--tw-border-opacity:1;border-color:rgb(41 37 36 / var(--tw-border-opacity, 1))}.border-white\/40{border-color:rgb(255 255 255 / 0.4)}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235 / var(--tw-bg-opacity, 1))}.bg-amber-600{--tw-bg-opacity:1;background-color:rgb(217 119 6 / var(--tw-bg-opacity, 1))}.bg-amber-700{--tw-bg-opacity:1;background-color:rgb(180 83 9 / var(--tw-bg-opacity, 1))}.bg-amber-800{--tw-bg-opacity:1;background-color:rgb(146 64 14 / var(--tw-bg-opacity, 1))}.bg-amber-900{--tw-bg-opacity:1;background-color:rgb(120 53 15 / var(--tw-bg-opacity, 1))}.bg-black\/10{background-color:rgb(0 0 0 / 0.1)}.bg-blue-500{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.bg-blue-700{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.bg-green-500{--tw-bg-opacity:1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-stone-800\/50{background-color:rgb(41 37 36 / 0.5)}.bg-stone-900{--tw-bg-opacity:1;background-color:rgb(28 25 23 / var(--tw-bg-opacity, 1))}.bg-stone-950{--tw-bg-opacity:1;background-color:rgb(12 10 9 / var(--tw-bg-opacity, 1))}.object-cover{object-fit:cover}.p-1{padding:0.25rem}.p-12{padding:3rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-24{padding-top:6rem;padding-bottom:6rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-16{padding-bottom:4rem}.pb-6{padding-bottom:1.5rem}.pt-10{padding-top:2.5rem}.pt-32{padding-top:8rem}.pt-4{padding-top:1rem}.pt-8{padding-top:2rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-6xl{font-size:3.75rem;line-height:1}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-light{font-weight:300}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-\[0\.3em\]{letter-spacing:0.3em}.tracking-tighter{letter-spacing:-0.05em}.tracking-wide{letter-spacing:0.025em}.tracking-widest{letter-spacing:0.1em}.text-amber-500{--tw-text-opacity:1;color:rgb(245 158 11 / var(--tw-text-opacity, 1))}.text-amber-600{--tw-text-opacity:1;color:rgb(217 119 6 / var(--tw-text-opacity, 1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14 / var(--tw-text-opacity, 1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15 / var(--tw-text-opacity, 1))}.text-amber-900\/70{color:rgb(120 53 15 / 0.7)}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity, 1))}.text-green-600{--tw-text-opacity:1;color:rgb(22 163 74 / var(--tw-text-opacity, 1))}.text-green-700{--tw-text-opacity:1;color:rgb(21 128 61 / var(--tw-text-opacity, 1))}.text-orange-600{--tw-text-opacity:1;color:rgb(234 88 12 / var(--tw-text-opacity, 1))}.text-stone-400{--tw-text-opacity:1;color:rgb(168 162 158 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-10{opacity:0.1}.opacity-30{opacity:0.3}.opacity-70{opacity:0.7}.opacity-95{opacity:0.95}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.drop-shadow-2xl{--tw-drop-shadow:drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.drop-shadow-md{--tw-drop-shadow:drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:border-white:hover{--tw-border-opacity:1;border-color:rgb(255 255 255 / var(--tw-border-opacity, 1))}.hover\:bg-amber-800:hover{--tw-bg-opacity:1;background-color:rgb(146 64 14 / var(--tw-bg-opacity, 1))}.hover\:text-amber-700:hover{--tw-text-opacity:1;color:rgb(180 83 9 / var(--tw-text-opacity, 1))}@media (min-width: 768px){.md\:flex{display:flex}.md\:h-64{height:16rem}.md\:h-80{height:20rem}.md\:w-1\/2{width:50%}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}.md\:text-5xl{font-size:3rem;line-height:1}.md\:text-8xl{font-size:6rem;line-height:1}}@media (min-width: 1024px){.lg\:w-1\/2{width:50%}.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.lg\:flex-row{flex-direction:row}.lg\:p-20{padding:5rem}}</style></head>
+<body class="text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 py-4 px-6 border-b border-amber-100">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold text-amber-900 tracking-tighter flex items-center">
+                <span class="bg-amber-800 text-white p-1 rounded mr-2">G</span> GALAXY COFFEE FEST
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-bold uppercase tracking-widest text-amber-900/70">
+                <a href="#operation" class="hover:text-amber-700 transition">營運機制</a>
+                <a href="#eco" class="hover:text-amber-700 transition">永續環保</a>
+                <a href="#community" class="hover:text-amber-700 transition">產業聯動</a>
+                <a href="#design" class="hover:text-amber-700 transition">設計支持</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient h-screen flex items-center justify-center text-white px-4">
+        <div class="text-center animate__animated animate__fadeIn">
+            <h1 class="text-6xl md:text-8xl font-black mb-6 drop-shadow-2xl">銀河咖啡節</h1>
+            <p class="text-xl md:text-3xl font-light max-w-3xl mx-auto opacity-95 leading-relaxed tracking-wide drop-shadow-md">
+                2026 現場觀察報告：<span class="font-bold">專業運作</span>與<span class="font-bold">永續實踐</span>
+            </p>
+            <div class="mt-16 animate__animated animate__bounce animate__infinite animate__slow">
+                <a href="#operation" class="inline-block p-4 rounded-full border-2 border-white/40 hover:border-white transition bg-black/10 backdrop-blur-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" class=""></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-24">
+        
+        <!-- Section 1: 營運管理 -->
+        <section id="operation" class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32 reveal active">
+            <div class="space-y-8">
+                <span class="text-amber-600 font-bold tracking-widest uppercase text-sm">01 / Operation Strategy</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">中央化的<br><span class="text-amber-800">高效營運體系</span></h2>
+                <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
+                    <p class="">
+                        針對境外參展品牌，大會配套一名<span class="highlight-text font-bold">專屬工作人員</span>協助收款，解決了跨區域營運的行政痛點。
+                    </p>
+                    <div class="bg-amber-50 p-8 rounded-2xl border-l-8 border-amber-700 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <h4 class="font-bold text-amber-900 mb-2">核心：中央收款系統</h4>
+                        <p class="text-gray-700">全場統一收款不僅讓帳務數位化，更大幅提升了消費者在不同展位間的流轉速度。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 gap-6">
+                <div class="image-zoom shadow-2xl rounded-3xl h-64 md:h-80">
+                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTiWxnu-0cds2aHnLuFfCVTTRqIN_ev_BRe5_LZZHrkx726wob0fXOeGlYiFCuP9J2BUFjLOex0SKww/pub?w=960&amp;h=720" alt="展位全景圖" class="">
+                    <div class="photo-badge">展位佈置細節</div>
+                </div>
+                <div class="image-zoom shadow-xl rounded-3xl h-48 md:h-64">
+                    <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXc4SnlTrpkZ-4NNDGrBGzbhTkKHcah2tOeKnWgXvBHJPzX9ILOIJQntnDlYxbMpCrOuvMdagI86GdCqr_CSj5Kmp4mO-lwwmJdvJucYH9gf1lIYoR4Gdqp4ea0vch_dLI0?key=zl3mCX0gEmbBAHCW7vqbWw" alt="中央收款系統與專人協助現場" class="" style="width: 592px; display: block; margin: 0px auto 1em;">
+                    <div class="photo-badge">現場收銀與人員配套</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 2: 綠色環保 -->
+        <section id="eco" class="mb-32 reveal active">
+            <div class="text-center mb-20">
+                <span class="text-green-600 font-bold tracking-widest uppercase text-sm">02 / Sustainability</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2">永續細節：不只是裝飾</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="observe-card p-4 rounded-[2rem]">
+                    <div class="image-zoom h-80 mb-6">
+                        <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXfGGCRbDsLSkF5w860yFGBm2FrM6bnTcck9MqmgVr8bfnnvOBr6k3btW1PSiZktF6HZoTJHQpqCMakCjfKsPA1iznPErC1mtH9XfvcPJaDiSJACnO8QsqcS1MVFgkjVAMQ?key=zl3mCX0gEmbBAHCW7vqbWw" alt="Bambrew環保竹製紙巾" class="" style="width: 566px; display: block; margin: 0px auto 1em;">
+                    </div>
+                    <div class="px-4 pb-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            <span class="text-sm font-bold text-green-700">再生材料</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-amber-900">Bambrew 環保紙巾</h3>
+                        <p class="text-gray-600 text-lg">現場全面採用竹製紙巾，減少木漿消耗，將「減碳」落實於每一次擦拭。</p>
+                    </div>
+                </div>
+                <div class="observe-card p-4 rounded-[2rem]">
+                    <div class="image-zoom h-80 mb-6">
+                        <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXeW8klrG1zun92-J-1qfoXcOlzyp7IOsS_rl1qapwlS_x2BWNSp6bCefJ3k5rm7GOrspdKjaWUEyISXWdJ_o7shqisU3MhcYs9SqyUQUfDTKP_4-OfqePMrcTt1Jix9fJo?key=zl3mCX0gEmbBAHCW7vqbWw" alt="中央服務台" class="" style="width: 566px; display: block; margin: 0px auto 1em;">
+                    </div>
+                    <div class="px-4 pb-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                            <span class="text-sm font-bold text-blue-700">資源整合</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-amber-900">中央物資供應台</h3>
+                        <p class="text-gray-600 text-lg">統一供應耗材，在確保品牌一致性的同時，透過集中物流降低碳排放。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 3: 產業聯動 -->
+        <section id="community" class="mb-32 reveal active">
+            <div class="bg-stone-900 rounded-[3rem] overflow-hidden text-white shadow-2xl flex flex-col lg:flex-row">
+                <div class="p-12 lg:p-20 lg:w-1/2 flex flex-col justify-center">
+                    <span class="text-amber-500 font-bold tracking-widest uppercase text-sm mb-6">03 / Synergy</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-10 leading-tight">產官學商的<br>多維度聯動</h2>
+                    <div class="space-y-10">
+                        <div class="flex items-start gap-5">
+                            <div class="w-10 h-10 rounded-lg bg-amber-700 flex items-center justify-center shrink-0 font-black">1</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">精品咖啡師協會</h4>
+                                <p class="text-stone-400">統籌專業會員參展，確保全場展示與交流具備行業頂尖水準。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5 border-t border-stone-800 pt-8">
+                            <div class="w-10 h-10 rounded-lg bg-amber-700 flex items-center justify-center shrink-0 font-black">2</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">澳門直播協會</h4>
+                                <p class="text-stone-400">專業直播團隊進駐，將現場熱度透過數位媒介傳遞至全球觀眾。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5 border-t border-stone-800 pt-8">
+                            <div class="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center shrink-0 font-black">3</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">政策扶持讓利</h4>
+                                <p class="text-stone-400">本地企業享有 2000 元的低門檻參展價，體現政策對本土文化的強力推廣。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 p-8 grid grid-cols-2 gap-4 bg-stone-800/50">
+                    <div class="image-zoom rounded-2xl h-full shadow-lg">
+                        <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXfv2FHCb0UJPcPnAp3n04jpE_dFULGkfKOsxNnKBGgFfwH3S6bZZ8ZllJW2desRuEMV2BKRvxJeG9uRk0Y6xz4xOB6Rj3LGGact1fzxIiX7GbUhn9l3kTWSX-LqrngPZw?key=zl3mCX0gEmbBAHCW7vqbWw" class="h-full object-cover" alt="咖啡師協會區域" style="width: 272px; display: block; margin: 0px auto 1em;">
+                    </div>
+                    <div class="space-y-4">
+                        <div class="image-zoom rounded-2xl h-[calc(50%-0.5rem)] shadow-lg">
+                            <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcc5l3ZaQJYSFyewi5jSgBB83RN8D8Ho4acr_lWv9vnxHn43jnLUTsnVPIXNgrszEZhjX8a3EaZQyXuYfk8R5_kI_n8fFBkUQlMyyz1lHOlMqgLcyYrpUoWgIXHjf6Lxf0?key=zl3mCX0gEmbBAHCW7vqbWw" class="h-full object-cover" alt="直播服務現場" style="width: 272px; display: block; margin: 0px auto 1em;">
+                        </div>
+                        <div class="image-zoom rounded-2xl h-[calc(50%-0.5rem)] shadow-lg">
+                            <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcRn_uiBoZMXXZbh0PhTK1hnVjhL0FsoBSASuwyhq8ql9Sunlmgt2gTHhcM8EJFPKlMcQ0qrPETFCbznBxSNuyI74OA9EtxJ1iKRpfHFE9cAj75udonPnpJovytXvIPKA?key=zl3mCX0gEmbBAHCW7vqbWw" class="h-full object-cover" alt="直播技術支援" style="width: 272px; display: block; margin: 0px auto 1em;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: 設計支持 -->
+        <section id="design" class="reveal pt-10 active">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2 relative">
+                    <div class="image-zoom rounded-[3rem] shadow-2xl rotate-2">
+                        <img src="uploaded:image.png-51ea78d8-26ce-47af-8ec7-f799c184de7f" alt="茶甡再生材質家具" class="">
+                    </div>
+                    <div class="absolute -top-6 -left-6 bg-amber-800 text-white p-6 rounded-2xl shadow-2xl z-20">
+                        <p class="text-xs uppercase tracking-widest opacity-70 mb-1">Material Innovation</p>
+                        <p class="text-3xl font-black italic">茶甡</p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 space-y-8">
+                    <span class="text-orange-600 font-bold tracking-widest uppercase text-sm">04 / Design Collaboration</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">材質再生：從茶渣到家具</h2>
+                    <p class="text-xl text-gray-600 leading-relaxed font-light">
+                        現場休息區使用了由 <span class="font-bold text-amber-900">茶甡&nbsp;</span>提供的桌椅。透過專利技術將「茶葉殘渣」循環再造，不僅解決了廢棄物問題，更為展場增添了溫潤的文化底蘊。</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-white pt-32 pb-16">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="mb-12 inline-block">
+                <div class="flex items-center justify-center space-x-4 mb-6">
+                    <div class="h-[1px] w-12 bg-amber-600"></div>
+                    <span class="text-amber-600 font-bold uppercase tracking-[0.3em]">Observation Summary</span>
+                    <div class="h-[1px] w-12 bg-amber-600"></div>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 italic">「標準化營運與永續理念的完美交匯。」</h2>
+                <p class="text-xl text-stone-400 leading-relaxed font-light mb-12">
+                    銀河咖啡節不僅是一場商業活動，更是一個透過中央後勤、組織協作與循環設計，實踐專業化策展的卓越範例。
+                </p>
+            </div>
+            
+            <p class="opacity-30 text-xs tracking-widest">© 2024 GALAXY COFFEE FESTIVAL INSIGHTS</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        window.onload = function() {
+            setTimeout(reveal, 100);
+        };
+    </script>
+
+
+</body></html>
